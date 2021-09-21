@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ECommerceW8.Models.Category>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div>
+    <h1>Home</h1>
+    <img src="~/assets//banner.jpg" class="img-fluid" style="height: 50vh; width: 100%; object-fit: cover" alt="Banner Image">  
+       
+        <div class="row mt-4 mb--4"  style="height:350px; width:auto">
+            @if (Model != null && Model.Count() > 0)
+            {
+                @foreach (var obj in Model.FirstOrDefault().Products)
+                {
+                    <div class="col-md-4">
+                         <img src=@obj.Images.FirstOrDefault().Url class="img-fluid" alt="product image" />
+                     <div class="d-flex justify-content-between">
+                          <p class="lead">@obj.Category.Name</p>
+                         <a asp-controller="Product" asp-route-Id="@obj.Id" asp-action="Index" class="btn btn-dark mx-2">>>></a>
+                     </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p> Loading... </p>
+            }
+        </div>
+
+</div>

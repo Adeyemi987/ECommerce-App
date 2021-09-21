@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ECommerceW8.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container">
+    <div class="d-flex  justify-content-between">
+        <h1>Products</h1>
+        <form method="post" asp-action="SearchByCategory" class="form-inline my-2 my-lg-0">
+            <input name="searchQuery" class="form-control mr-sm-2" type="text" placeholder="Search Product by Category" aria-label="Search">
+            <button type="submit" asp-controller="Product" asp-action="SearchByCategory" class="btn btn-primary"><i class="fas fa-search"></i> &nbsp;</button>
+        </form>
+    </div>
+    <br /> <br />
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <div class="row mt-4" style="height:350px; width:auto">
+            @foreach (var obj in Model)
+            {
+                <div class="col-md-4" style="margin-bottom:10px">
+                        <img src=@obj.Images.FirstOrDefault().Url class="img-fluid" alt="product image" />
+                        <div class="row">
+                            <h5 class="card-title">@obj.Name<br/><small><strong>$</strong>@obj.Price</small></h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="lead">@obj.Category.Name</p>
+                                <a asp-controller="Product" asp-route-Id="@obj.Id" asp-action="ProductDetail" class="btn btn-dark mx-2">View Product</a>
+                            </div>
+                        </div>
+                   
+                </div>
+             }
+        </div>
+    }
+    else
+    {
+        <p> No Cars Available </p>
+    }
+</div>
+
+

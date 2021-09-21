@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ECommerceW8.Models.Product>
+@{
+    ViewData["Title"] = "Search result(s)";
+}
+
+<div class="container">
+    <div class="d-flex  justify-content-between">
+        <h1>Search result(s)</h1>
+        <form method="post" asp-action="SearchByCategory" class="form-inline my-2 my-lg-0">
+            <input name="searchQuery" class="form-control mr-sm-2" type="text" placeholder="Search a category" aria-label="Search">
+            <button type="submit" asp-controller="Product" asp-action="SearchByCategory" class="btn btn-primary"><i class="fas fa-search"></i> &nbsp;</button>
+        </form>
+    </div>
+    <div class="d-flex  justify-content-between"> 
+        <p></p>
+        <div col-md-4">
+        <a asp-action="index" class="btn btn-info "> <i class="fas fa-backward"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <br /> <br />
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <div class="row mt-4" style="height:contain">
+            @foreach (var obj in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src=@obj.Images.FirstOrDefault().Url class="img-fluid card-img-top" style="height:300px; width:auto; object-fit:cover" alt="product image" />
+                        <div class="card-body">
+                            <h5 class="card-title">@obj.Name<br /><small><strong>$</strong>@obj.Price</small></h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="lead">@obj.Category.Name</p>
+                                <a asp-controller="Product" asp-route-Id="@obj.Id" asp-action="ProductDetail" class="btn btn-dark mx-2">View Product</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p> No Product available in this category </p>
+    }
+</div>
+

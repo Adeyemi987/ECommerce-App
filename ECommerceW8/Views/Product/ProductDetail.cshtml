@@ -1,0 +1,46 @@
+﻿@model Product
+@{ ViewData["Title"] = @Model.Name; }
+
+<div class="d-flex  justify-content-between">
+    <p>Product Detail</p><br/><br/><br/>
+    <div col-md-4">
+        <a asp-action="index" class="btn btn-info "> <i class="fas fa-backward"></i> &nbsp; Back</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <img class="img-fluid" style="width: 100%" src=@Model.Images.FirstOrDefault().Url alt="@Model.Name" />
+    </div>
+    <div class="col-md-6">
+        <h1>@Model.Name</h1>
+        <h2>Price: $@Model.Price</h2>
+        <div class="mt-4">
+            <form class="form">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="number" value="1" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-block ">Buy Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="mt-4">
+            <p class="lead">
+                Category: @Model.Category.Name
+            </p>
+            <p class="lead">
+                Description: <br />@Model.Description
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row mt-4" style="height:250px; width:auto">
+    @foreach (var item in Model.Images)
+    {
+        <div class="col-md-4">
+        <img class="img-fluid" src=@item.Url />
+        </div>
+    }
+</div>
